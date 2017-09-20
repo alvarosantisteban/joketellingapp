@@ -1,16 +1,17 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
 
     defaultConfig {
-        applicationId "com.alvarosantisteban.joketellingapp"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -26,12 +27,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
-
-    // AdMob
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
-
-    // Java library that provides jokes
-    compile project(path: ':jokeprovider')
-    // Android library that displays jokes
-    compile project(path: ':jokedisplayer')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }

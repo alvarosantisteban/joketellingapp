@@ -1,16 +1,17 @@
 package com.alvarosantisteban.joketellingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alvarosantisteban.JokeProvider;
+import com.alvarosantisteban.jokedisplayer.JokeDisplayingActivity;
 
 /**
- * Displays jokes to the user at demand.
+ * Retrieves jokes from the JokeProvider lib and passes them to the JokeDisplayer lib.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, JokeProvider.getJoke(), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, JokeDisplayingActivity.class);
+        intent.putExtra(JokeDisplayingActivity.JOKE_EXTRA, JokeProvider.getJoke());
+        startActivity(intent);
     }
 }
