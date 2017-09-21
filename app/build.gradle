@@ -25,13 +25,20 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
 
+    // Needed for making the requests to the backend server
+    compile 'com.google.http-client:google-http-client-android:1.22.0'
+    compile 'com.google.api-client:google-api-client:1.22.0'
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
     // AdMob
     compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
 
     // Java library that provides jokes
     compile project(path: ':jokeprovider')
     // Android library that displays jokes
     compile project(path: ':jokedisplayer')
+    // GCE Module
+    compile project(path: ':jokesbackend', configuration: 'android-endpoints')
 }
