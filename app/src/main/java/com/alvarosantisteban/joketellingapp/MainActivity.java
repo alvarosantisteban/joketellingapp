@@ -1,8 +1,6 @@
 package com.alvarosantisteban.joketellingapp;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-//        Intent intent = new Intent(this, JokeDisplayingActivity.class);
-//        intent.putExtra(JokeDisplayingActivity.JOKE_EXTRA, JokeProvider.getJoke());
-//        startActivity(intent);
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Marcel"));
+        new EndpointsAsyncTask().execute(this);
     }
 }

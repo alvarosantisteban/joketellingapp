@@ -1,10 +1,10 @@
 package com.alvarosantisteban.joketellingapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.util.Pair;
-import android.widget.Toast;
 
+import com.alvarosantisteban.jokedisplayer.JokeDisplayingActivity;
 import com.alvarosantisteban.joketellingapp.backend.myApi.MyApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -16,20 +16,22 @@ import java.io.IOException;
 /**
  * AsyncTask to make requests to the backend server JokesBackend.
  */
-class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+
+    private final static String IP_ADDRESS = "192.168.0.82";
+
     private static MyApi myApiService = null;
     private Context context;
 
-    @SafeVarargs
     @Override
-    protected final String doInBackground(Pair<Context, String>... params) {
+    protected final String doInBackground(Context... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-                    .setRootUrl("http://192.168.0.82:8080/_ah/api/")
+                    .setRootUrl("http://" +IP_ADDRESS +":8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -41,18 +43,19 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
             myApiService = builder.build();
         }
 
-        context = params[0].first;
-        String name = params[0].second;
+        context = params[0];
 
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+    protected void onPostExecute(String joke) {
+        Intent intent = new Intent(context, JokeDisplayingActivity.class);
+        intent.putExtra(JokeDisplayingActivity.JOKE_EXTRA, joke);
+        context.startActivity(intent);
     }
 }

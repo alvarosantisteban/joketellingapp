@@ -6,6 +6,7 @@
 
 package com.alvarosantisteban.joketellingapp.backend;
 
+import com.alvarosantisteban.JokeProvider;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -34,6 +35,16 @@ public class MyEndpoint {
         MyBean response = new MyBean();
         response.setData("Good evening, " + name);
 
+        return response;
+    }
+
+    /**
+     * An endpoint method that returns a joke from the JokeProvider
+     */
+    @ApiMethod(name = "getJoke")
+    public MyBean getJoke() {
+        MyBean response = new MyBean();
+        response.setData(JokeProvider.getJoke());
         return response;
     }
 }
