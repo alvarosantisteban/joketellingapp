@@ -1,15 +1,22 @@
 package com.alvarosantisteban.joketellingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.alvarosantisteban.jokedisplayer.JokeDisplayingActivity;
+
 /**
  * Retrieves jokes from the JokeProvider lib and passes them to the JokeDisplayer lib.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.OnAsyncTaskCommunication {
+
+    private final static String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new EndpointsAsyncTask().execute(this);
+        new EndpointsAsyncTask(this).execute();
+    }
+
+    @Override
+    public void onAsyncTaskFinished(@NonNull String joke) {
+        if(!joke.equals(EndpointsAsyncTask.CONNECTION_ERROR)) {
+            Intent intent = new Intent(this, JokeDisplayingActivity.class);
+            intent.putExtra(JokeDisplayingActivity.JOKE_EXTRA, joke);
+            startActivity(intent);
+        } else {
+            Snackbar.make(findViewById(R.id.fragment),
+                    R.string.connection_error, Snackbar.LENGTH_LONG).show();
+        }
     }
 }

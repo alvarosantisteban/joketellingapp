@@ -1,10 +1,9 @@
 package com.alvarosantisteban.joketellingapp;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
-import com.alvarosantisteban.jokedisplayer.JokeDisplayingActivity;
 import com.alvarosantisteban.joketellingapp.backend.myApi.MyApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -16,15 +15,26 @@ import java.io.IOException;
 /**
  * AsyncTask to make requests to the backend server JokesBackend.
  */
-class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+
+    interface OnAsyncTaskCommunication {
+        void onAsyncTaskFinished(@NonNull String joke);
+    }
+
+    private final static String TAG = EndpointsAsyncTask.class.getSimpleName();
 
     private final static String IP_ADDRESS = "192.168.0.82";
+    final static String CONNECTION_ERROR = "connectionError";
 
     private static MyApi myApiService = null;
-    private Context context;
+    private OnAsyncTaskCommunication onAsyncTaskCommunication;
+
+    EndpointsAsyncTask(OnAsyncTaskCommunication onAsyncTaskCommunication) {
+        this.onAsyncTaskCommunication = onAsyncTaskCommunication;
+    }
 
     @Override
-    protected final String doInBackground(Context... params) {
+    protected final String doInBackground(Void... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -43,19 +53,19 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
             myApiService = builder.build();
         }
 
-        context = params[0];
-
         try {
             return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            return CONNECTION_ERROR;
         }
     }
 
     @Override
-    protected void onPostExecute(String joke) {
-        Intent intent = new Intent(context, JokeDisplayingActivity.class);
-        intent.putExtra(JokeDisplayingActivity.JOKE_EXTRA, joke);
-        context.startActivity(intent);
+    protected void onPostExecute(@NonNull String joke) {
+        if (onAsyncTaskCommunication != null) {
+            onAsyncTaskCommunication.onAsyncTaskFinished(joke);
+        } else {
+            Log.e("Test", "There is no one to inform");
+        }
     }
 }

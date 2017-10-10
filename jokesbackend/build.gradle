@@ -39,6 +39,8 @@ appengine {
     endpoints {
         getClientLibsOnBuild = true
         getDiscoveryDocsOnBuild = true
+        // Fixes a current Android Studio bug
+        googleClientVersion = '1.23.0'
     }
     // Make the development server accessible to the network by setting it to listen to external connections
     httpAddress = "0.0.0.0"
