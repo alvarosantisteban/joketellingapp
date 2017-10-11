@@ -44,9 +44,11 @@ dependencies {
     compile 'com.google.api-client:google-api-client:1.22.0'
 
     compile 'com.android.support:appcompat-v7:26.0.1'
-    // AdMob
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
+
     compile 'com.google.code.findbugs:jsr305:2.0.1'
+
+    // Define the AdMob dependency only for the free version of the app
+    freeCompile 'com.google.android.gms:play-services-ads:11.0.4'
 
     // Android library that displays jokes
     compile project(path: ':jokedisplayer')
