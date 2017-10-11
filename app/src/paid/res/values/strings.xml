@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Joke Teller (Premium)</string>
+    <string name="main_fragment_package">com.alvarosantisteban.joketellingapp.paid.MainActivityFragment</string>
+</resources>

@@ -18,6 +18,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        free {
+            applicationId "com.alvarosantisteban.joketellingapp.free"
+        }
+
+        paid {
+            applicationId "com.alvarosantisteban.joketellingapp.paid"
+        }
+    }
 }
 
 dependencies {

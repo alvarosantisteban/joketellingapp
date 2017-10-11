@@ -5,4 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="connection_error">Connection error: Is the backend server running?</string>
+
+    <string name="main_fragment_package">com.alvarosantisteban.joketellingapp.free.MainActivityFragment</string>
 </resources>
