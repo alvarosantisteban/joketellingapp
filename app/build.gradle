@@ -30,6 +30,11 @@ android {
     }
 }
 
+// Needed to remove version conflicting warning
+configurations {
+    compile.exclude group: "org.apache.httpcomponents", module: "httpclient"
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
