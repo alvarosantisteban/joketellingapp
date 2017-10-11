@@ -183,5 +183,17 @@
     <orderEntry type="module" module-name="jokesbackend" exported="" />
     <orderEntry type="module" module-name="jokedisplayer" exported="" />
     <orderEntry type="library" exported="" name="constraint-layout-solver-1.0.2" level="project" />
+    <orderEntry type="module" module-name="jokesbackend" exported="" />
+    <orderEntry type="module" module-name="jokedisplayer" exported="" />
+    <orderEntry type="module" module-name="jokesbackend" exported="" />
+    <orderEntry type="module" module-name="jokedisplayer" exported="" />
+    <orderEntry type="module" module-name="jokesbackend" exported="" />
+    <orderEntry type="module" module-name="jokedisplayer" exported="" />
+    <orderEntry type="module" module-name="jokesbackend" exported="" />
+    <orderEntry type="module" module-name="jokedisplayer" exported="" />
+    <orderEntry type="module" module-name="jokesbackend" exported="" />
+    <orderEntry type="module" module-name="jokedisplayer" exported="" />
+    <orderEntry type="module" module-name="jokesbackend" exported="" />
+    <orderEntry type="module" module-name="jokedisplayer" exported="" />
   </component>
 </module>

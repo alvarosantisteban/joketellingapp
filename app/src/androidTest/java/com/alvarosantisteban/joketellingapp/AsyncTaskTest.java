@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,6 +36,7 @@ public class AsyncTaskTest {
             @Override
             public void onAsyncTaskFinished(@NonNull String joke) {
                 if(!joke.equals(EndpointsAsyncTask.CONNECTION_ERROR)) {
+                    Log.d(TAG, joke);
                     assertFalse("A joke was expected, but the string obtained from the AsyncTask is null or empty", TextUtils.isEmpty(joke));
                 } else {
                     fail("There is no connection. Is the backend server running?");

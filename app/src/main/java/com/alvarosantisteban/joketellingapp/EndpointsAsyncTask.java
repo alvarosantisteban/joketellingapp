@@ -15,21 +15,21 @@ import java.io.IOException;
 /**
  * AsyncTask to make requests to the backend server JokesBackend.
  */
-class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 
-    interface OnAsyncTaskCommunication {
+    public interface OnAsyncTaskCommunication {
         void onAsyncTaskFinished(@NonNull String joke);
     }
 
     private final static String TAG = EndpointsAsyncTask.class.getSimpleName();
 
     private final static String IP_ADDRESS = "192.168.0.82";
-    final static String CONNECTION_ERROR = "connectionError";
+    public final static String CONNECTION_ERROR = "connectionError";
 
     private static MyApi myApiService = null;
     private OnAsyncTaskCommunication onAsyncTaskCommunication;
 
-    EndpointsAsyncTask(OnAsyncTaskCommunication onAsyncTaskCommunication) {
+    public EndpointsAsyncTask(OnAsyncTaskCommunication onAsyncTaskCommunication) {
         this.onAsyncTaskCommunication = onAsyncTaskCommunication;
     }
 
