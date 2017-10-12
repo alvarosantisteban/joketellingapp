@@ -38,3 +38,37 @@ dependencyUpdates.resolutionStrategy = {
         }
     }
 }
+
+
+// Following solution for configuring the test task has been based on what I read in Udacity's forum and resources
+
+task startLocalBackend (dependsOn: ":jokesbackend:appengineRun") {
+    project(":jokesbackend").afterEvaluate { jokesbackend ->
+        jokesbackend.extensions.appengine.daemon = true
+    }
+    doLast {
+        println "Start the local backend server"
+    }
+}
+
+task shutDownLocalBackend (dependsOn: ":jokesbackend:appengineStop") {
+    mustRunAfter startLocalBackend
+    doLast {
+        println "Shut down the local backend server"
+    }
+}
+
+task testApp (dependsOn: ":app:connectedAndroidTest") {
+    mustRunAfter startLocalBackend
+    finalizedBy shutDownLocalBackend
+    doLast {
+        println "Test the app"
+    }
+}
+
+task runTests() {
+    dependsOn = ["startLocalBackend", "testApp", "shutDownLocalBackend"]
+    doLast {
+        println "runTests task completed"
+    }
+}
